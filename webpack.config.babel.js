@@ -1,47 +1,22 @@
 import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
-import friendlyFormatter from 'eslint-friendly-formatter';
-import autoprefixer from 'autoprefixer';
-import settings from './config';
-const {
-  contentBase,
-  publicPath,
-  devServer,
-  sourceMaps,
-  entries,
-  outputDir,
-  outputFileName,
-  nodeModules,
-  cssLoaderConfig,
-  eslint,
-  webpackPlugins,
-  autoprefixerBrowsers,
-  externals
-} = settings;
 
 const config = {
-  devtool: sourceMaps,
-  devServer,
-  externals,
+  devtool: 'source-map',
   cache: true,
-  contentBase,
-  entry: entries,
+  contentBase: path.resolve(__dirname ),
+  entry: { main: ['webpack-hot-middleware/client?reload=true', path.resolve(__dirname, '/src/app.jsx' ]) }
   output: {
-    path: outputDir,
+    path: path.resolve(__dirname, '/dist'),
     filename: `[name].${outputFileName}`,
-    publicPath,
+    publicPath: '/Dist'
     pathinfo: true,
     hotUpdateMainFilename: 'hot/[hash].hot-update.json',
     hotUpdateChunkFilename: 'hot/[id].[hash].hot-update.js'
   },
   resolve: {
     unsafeCache: true,
-    extensions: ['', '.jsx', '.scss', '.js', '.json'],
-    alias: { // TODO: Should we be using resolve.root instead?  See janpaul123's comment: https://github.com/webpack/webpack/issues/1574#issuecomment-157520561
-      Controls: path.resolve(__dirname, '../SharedComponents/Controls/Index.js'),
-      Utils: path.resolve(__dirname, '../App/Utils/Index.js'),
-      MockedData: path.resolve(__dirname, '../MockedData/Index.js')
-    }
+    extensions: ['', '.jsx', '.scss', '.js', '.json']
   },
   module: {
     noParse: [],
@@ -57,30 +32,10 @@ const config = {
       },
       {
         test: /\.json$/, loaders: ['json']
-      },
-    ].concat(cssLoaderConfig)
-  },
-  sassLoader: {
-    includePaths: [
-      path.resolve(__dirname, '../App/Styles/Tools'),
-      require('bourbon').includePaths
+      }
     ]
   },
-  toolbox: {
-    theme: 'App/Styles/04-Themes/theme.scss'
-  },
-  postcss: [
-    autoprefixer({ browsers: ['ie >= 10', 'ie_mob >= 10', 'ff >= 30', 'chrome >= 34', 'safari >= 7', 'opera >= 23', 'ios >= 7', 'android >= 4.4', 'bb >= 10'] })
-  ],
-  plugins: webpackPlugins
+  plugins: {
+
+  }
 };
-
-export default config;
-
-if (eslint) {
-  config.module.preLoaders = [eslint];
-  config.eslint = {
-    configFile: path.resolve(process.cwd(), '.eslintrc.json'),
-    formatter: friendlyFormatter
-  };
-}
