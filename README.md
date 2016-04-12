@@ -1,10 +1,14 @@
 # React Xamarin Prototyping
 
+### Getting Started
 To begin compilation and transpilation, run:
++ `git clone https://github.com/joevbruno/xamarin-react.git`
++ `cd xamarin-react`
++ `npm install`
 
-1. `npm install` if you have not previously
-2. `npm run server` fires up the node server
-3. in a new tab, run 'npm start' to begin webpack watching.
+### After Install
++ `npm run server` fires up the node server
++ in a new tab, run 'npm start' to begin webpack watching.
 
 Note: running `npm run prod` will generate minified files for production.
 
