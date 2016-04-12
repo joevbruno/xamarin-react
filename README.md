@@ -12,4 +12,7 @@ To begin compilation and transpilation, run:
 
 Note: running `npm run prod` will generate minified files for production.
 
-Webpack should be re-compiling on save and the node server will serve the file built by webpack from the `dist` folder
+Webpack should be re-compiling on save and the node server will serve files built by webpack from the `dist` folder.
+
+Also, there is a index.html file in dist, which includes the `main.bundle.js` and `main.css` files.
+Once the node server is running, this file can be loaded by visiting `localhost:3000`
