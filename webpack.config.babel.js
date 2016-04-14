@@ -3,14 +3,9 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 import autoprefixer from 'autoprefixer';
-import { exec } from 'child_process';
-
-exec('npm run webpack', () => {
-
-});
 
 const DEBUG = process.env.NODE_ENV === 'development' ? true : false;
-console.log(process.env.NODE_ENV, DEBUG);
+
 const env = DEBUG ? new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify('development'),
