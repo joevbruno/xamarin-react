@@ -10,7 +10,7 @@ export default class Root extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <div className={styles.appContainer}>
+        <div>
           <Routes store={store} />
           <DevTools />
         </div>

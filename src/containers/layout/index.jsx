@@ -15,6 +15,7 @@ export default class Layout extends React.Component {
 
     return (
       <div>
+        <h1>Hello World</h1>
         { children }
       </div>
     );

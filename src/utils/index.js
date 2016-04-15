@@ -1,18 +1,11 @@
 /* eslint-disable */
-let ajaxRequestMethod = window.G2.Services.requestJSON;
+const ajaxRequestMethod = window.PostMessage; // eslint-disable-line new-cap
 
-function success(options, returnedData) {
-  if (options.success) {
-    return Promise.resolve(options.success(returnedData));
-  }
-  return Promise.resolve(returnedData);
-}
-
-export function fetchIt(options) {
-  const mergedOptions = {
-    ...options,
-    success: success.bind(this, options)
-  };
-
-  return Promise.resolve(ajaxRequestMethod(mergedOptions));
+export function fetchIt(url, params) {
+  return new Promise((resolve, reject) => {
+    ajaxRequestMethod(url, (data) => {
+      if (data) resolve(data);
+      if (!data) reject('no data!');
+    });
+  });
 }

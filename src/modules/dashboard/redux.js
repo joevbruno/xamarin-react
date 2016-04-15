@@ -16,17 +16,21 @@ export default function reducer(state = initialState, action) {
     case REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        madeItToRequest: true
       };
     case RECEIVE:
       return {
         ...state,
-        ...action.viewModel
+        ...action.viewModel,
+        isFetching: false,
+        madeItToReceive: true
       };
     default:
       return state;
   }
 }
+
 
 // Actions
 const requestViewModel = () => {
@@ -43,15 +47,12 @@ const receiveViewModel = (viewModel) => {
 };
 
 export const actionCreators = {
-
   fetchViewModel: () => {
     return (dispatch) => {
       dispatch(requestViewModel());
-      return fetchIt({
-        url: 'getDashboard'
-      }).then((viewModel) => {
+      return fetchIt('TestNativeController').then((viewModel) => {
         dispatch(receiveViewModel(viewModel));
-      });
+      }).catch((err) => console.log('error', err)); // eslint-disable-line no-console
     };
-  }
+  },
 };
